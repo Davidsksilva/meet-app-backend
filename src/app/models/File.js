@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class File {
+class File extends Model {
   static int(sequelize) {
     super.init(
       {
