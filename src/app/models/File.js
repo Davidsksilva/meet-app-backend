@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 
 class File extends Model {
-  static int(sequelize) {
+  static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
