@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { startOfHour, isBefore, subHours } from 'date-fns';
 
 import Meetup from '../models/Meetup';
-import File from '../models/File';
 
 class MeetupController {
   async store(req, res) {

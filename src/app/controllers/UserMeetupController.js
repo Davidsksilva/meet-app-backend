@@ -44,6 +44,21 @@ class UserMeetupController {
       where: { id: { [Op.or]: meetupIds } },
       limit: 20,
       offset: (page - 1) * 20,
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'location',
+        'date',
+        'time',
+        'user_id',
+      ],
+      include: [
+        {
+          model: File,
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
     });
 
     return res.json(meetups);
