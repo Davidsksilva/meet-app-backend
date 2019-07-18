@@ -48,7 +48,7 @@ class SubscriptionController {
     if (checkTimeOverlap) {
       return res
         .status(400)
-        .json({ error: 'You have already have a meetup on this schedule.' });
+        .json({ error: 'You already have a meetup on this schedule.' });
     }
 
     /**
