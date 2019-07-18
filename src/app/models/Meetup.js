@@ -8,16 +8,19 @@ class Meetup extends Model {
         description: Sequelize.TEXT,
         location: Sequelize.STRING,
         date: Sequelize.DATE,
-        user_id: Sequelize.INTEGER,
+        time: Sequelize.STRING,
       },
       {
         sequelize,
       }
     );
+
+    return this;
   }
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'banner_id' });
+    this.belongsTo(models.User, { foreignKey: 'user_id' });
   }
 }
 

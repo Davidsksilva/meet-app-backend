@@ -13,7 +13,15 @@ class MeetupController {
       order: ['date'],
       limit: 20,
       offset: (page - 1) * 20,
-      attributes: ['id', 'title', 'description', 'location', 'date', 'user_id'],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'location',
+        'date',
+        'time',
+        'user_id',
+      ],
       include: [
         {
           model: File,
@@ -31,6 +39,7 @@ class MeetupController {
       location: Yup.string().required(),
       date: Yup.date().required(),
       banner_id: Yup.number().required(),
+      time: Yup.string().required(),
     });
 
     req.body.user_id = req.userId;
@@ -55,6 +64,7 @@ class MeetupController {
       date,
       banner_id,
       user_id,
+      time,
     } = await Meetup.create(req.body);
 
     return res.json({
@@ -64,6 +74,7 @@ class MeetupController {
       date,
       banner_id,
       user_id,
+      time,
     });
   }
 
@@ -95,6 +106,7 @@ class MeetupController {
       description,
       location,
       date,
+      time,
       banner_id,
       user_id,
     } = await meetup.update(req.body);
@@ -104,6 +116,7 @@ class MeetupController {
       description,
       location,
       date,
+      time,
       banner_id,
       user_id,
     });
