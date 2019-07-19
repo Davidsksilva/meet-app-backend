@@ -3,6 +3,9 @@ import { startOfHour, isBefore, isSameDay } from 'date-fns';
 import Meetup from '../models/Meetup';
 import Subscription from '../models/Subscription';
 
+import Queue from '../../lib/Queue';
+import SubscriptionMail from '../jobs/SubscriptionMail';
+
 class SubscriptionController {
   async store(req, res) {
     const { meetup_id } = req.params.id;
@@ -62,10 +65,19 @@ class SubscriptionController {
         .json({ error: 'This meetup has already happened.' });
     }
 
-    const { user_id } = await Subscription.create({
+    const subscription = await Subscription.create({
       user_id: req.userId,
       meetup_id,
     });
+
+    /**
+     * Send Mail to meetup organizer
+     */
+    await Queue.add(SubscriptionMail.key, {
+      subscription,
+    });
+
+    const { user_id } = subscription;
 
     return res.json({
       user_id,
