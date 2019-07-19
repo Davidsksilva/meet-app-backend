@@ -13,6 +13,23 @@ services:
       POSTGRES_USER: meetapp
     ports:
       - 5423:5432
+  
+  mongo:
+    image: mongo
+    container_name: mongo_meetapp
+    ports:
+    - 27017:27017
+    volumes:
+      - /data/db:/data/db
+
+  redis:
+    image: redis
+    container_name: redis_meetapp
+    hostname: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - 6379:6379
 
 volumes:
   db-data:
+  mongo-data:
